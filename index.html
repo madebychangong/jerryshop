@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>제리샵 디4 시세표</title>
+    <meta name="description" content="제리샵 디아블로4 시세표" />
+    <meta name="jerryshop-version" content="security-clean-20260515-001" />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17121b;
+        --paper: #fffdf8;
+        --soft: #fff0f7;
+        --pink: #ff78b3;
+        --hot: #ff3f93;
+        --mint: #45dec8;
+        --sky: #70d7ff;
+        --yellow: #fee500;
+        --line: #221828;
+        --muted: #6d6272;
+        --shadow: 7px 7px 0 rgba(23, 18, 27, 0.95);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          linear-gradient(135deg, rgba(255, 120, 179, 0.16) 0 25%, transparent 25% 50%, rgba(112, 215, 255, 0.14) 50% 75%, transparent 75%),
+          linear-gradient(180deg, #fff7fc 0%, #f2f6ff 54%, #fff8ea 100%);
+        background-size: 28px 28px, auto;
+        color: var(--ink);
+        font-family:
+          Pretendard,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 17px;
+      }
+
+      button,
+      textarea,
+      input {
+        font: inherit;
+      }
+
+      .page {
+        width: min(100%, 940px);
+        margin: 0 auto;
+        padding: 20px 14px 92px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 260px;
+        gap: 14px;
+        align-items: stretch;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        background:
+          linear-gradient(135deg, var(--paper) 0 62%, #ffd8eb 62% 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .brand-main {
+        display: grid;
+        grid-template-columns: 118px minmax(0, 1fr);
+        gap: 16px;
+        align-items: center;
+        min-width: 0;
+      }
+
+      .logo {
+        display: block;
+        width: 118px;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        background: #ffb6d7;
+        box-shadow: 5px 5px 0 var(--pink);
+      }
+
+      .logo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--mint);
+        color: var(--ink);
+        font-size: 0.78rem;
+        font-weight: 1000;
+      }
+
+      h1 {
+        margin: 9px 0 0;
+        color: var(--ink);
+        font-size: clamp(2.45rem, 8vw, 4.6rem);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        margin: 8px 0 0;
+        color: #413449;
+        font-size: 1.08rem;
+        font-weight: 900;
+        line-height: 1.45;
+      }
+
+      .hero-side {
+        display: grid;
+        gap: 10px;
+      }
+
+      .live-pill {
+        display: grid;
+        align-content: center;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 10px;
+        background: var(--ink);
+        color: #fff;
+        text-align: center;
+      }
+
+      .live-pill span,
+      .live-pill strong {
+        display: block;
+      }
+
+      .live-pill span {
+        color: var(--mint);
+        font-size: 0.78rem;
+        font-weight: 1000;
+      }
+
+      .live-pill strong {
+        margin-top: 4px;
+        color: #fff;
+        font-size: 1.7rem;
+        line-height: 1;
+      }
+
+      .header-actions {
+        display: grid;
+        gap: 8px;
+      }
+
+      .header-actions a,
+      .contact a,
+      .modal button {
+        display: grid;
+        place-items: center;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        min-height: 54px;
+        padding: 12px;
+        color: var(--ink);
+        font-size: 1.08rem;
+        font-weight: 1000;
+        line-height: 1.1;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 4px 4px 0 var(--line);
+        cursor: pointer;
+        transition:
+          transform 150ms ease,
+          box-shadow 150ms ease,
+          filter 150ms ease;
+        user-select: none;
+      }
+
+      .header-actions a:hover,
+      .contact a:hover,
+      .modal button:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--line);
+        filter: saturate(1.06);
+      }
+
+      .header-actions a:active,
+      .contact a:active,
+      .modal button:active {
+        transform: translate(3px, 3px);
+        box-shadow: 1px 1px 0 var(--line);
+      }
+
+      .header-actions a:first-child,
+      .contact a:first-child,
+      .modal button {
+        background: var(--yellow);
+      }
+
+      .header-actions a:last-child,
+      .contact a:last-child {
+        background: var(--sky);
+      }
+
+      .meta {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .chip {
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 9px 10px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 0.92rem;
+        font-weight: 1000;
+        text-align: center;
+      }
+
+      .chip:nth-child(2) {
+        background: #ffe0ef;
+      }
+
+      .chip:nth-child(3) {
+        background: #e5fff8;
+      }
+
+      .notice {
+        margin: 19px auto 16px;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 15px;
+        background: var(--ink);
+        color: #fff;
+        box-shadow: 5px 5px 0 var(--pink);
+        text-align: center;
+        font-weight: 1000;
+        line-height: 1.45;
+      }
+
+      .price-list {
+        counter-reset: price-card;
+        display: grid;
+        gap: 14px;
+      }
+
+      .card {
+        counter-increment: price-card;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: 5px 5px 0 rgba(23, 18, 27, 0.9);
+        text-align: left;
+      }
+
+      .card:nth-child(3n + 1) h2 {
+        background: #ffe0ef;
+      }
+
+      .card:nth-child(3n + 2) h2 {
+        background: #e5fff8;
+      }
+
+      .card:nth-child(3n) h2 {
+        background: #fff4bf;
+      }
+
+      .card h2 {
+        position: relative;
+        margin: 0;
+        border-bottom: 2px solid var(--line);
+        padding: 16px 16px 16px 76px;
+        color: var(--ink);
+        font-size: clamp(1.38rem, 4.7vw, 1.86rem);
+        line-height: 1.25;
+      }
+
+      .card h2::before {
+        content: counter(price-card, decimal-leading-zero);
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 34px;
+        transform: translateY(-50%);
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        background: var(--mint);
+        color: var(--ink);
+        font-size: 0.85rem;
+        font-weight: 1000;
+      }
+
+      .rows {
+        display: grid;
+        gap: 9px;
+        padding: 14px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        align-items: center;
+        gap: 12px;
+        border: 1px solid #eadfea;
+        border-radius: 8px;
+        min-height: 48px;
+        padding: 11px 12px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 1.08rem;
+      }
+
+      .row strong {
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        min-width: 104px;
+        padding: 5px 11px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 1.04rem;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .row span {
+        min-width: 0;
+        font-weight: 900;
+        line-height: 1.25;
+      }
+
+      .note {
+        display: block;
+        border-color: #ffe4a3;
+        background: #fff8dd;
+        color: #5f4a22;
+        text-align: center;
+        font-size: 1.04rem;
+        font-weight: 900;
+        line-height: 1.45;
+      }
+
+      .empty {
+        border: 2px dashed var(--line);
+        border-radius: 8px;
+        padding: 28px 14px;
+        background: #fff;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .contact {
+        position: fixed;
+        right: 14px;
+        bottom: 14px;
+        z-index: 20;
+        display: grid;
+        gap: 8px;
+      }
+
+      .contact a {
+        min-height: 42px;
+        padding: 9px 12px;
+        font-size: 0.94rem;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgba(23, 18, 27, 0.72);
+      }
+
+      .modal-backdrop.open {
+        display: flex;
+      }
+
+      .modal {
+        width: min(100%, 820px);
+        max-height: 90vh;
+        overflow: auto;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .modal h2 {
+        margin: 0;
+        color: var(--ink);
+      }
+
+      .modal p {
+        margin: 8px 0 14px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .modal input,
+      .modal textarea {
+        width: 100%;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: #fff;
+        color: var(--ink);
+        outline: none;
+      }
+
+      .modal textarea {
+        min-height: 46vh;
+        resize: vertical;
+        line-height: 1.55;
+        white-space: pre;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .modal button.secondary {
+        background: #e8f8ff;
+        color: var(--ink);
+      }
+
+      .modal button.danger {
+        background: var(--pink);
+        color: var(--ink);
+      }
+
+      .admin-panel {
+        display: none;
+      }
+
+      .admin-panel.open {
+        display: block;
+      }
+
+      .hint {
+        margin-top: 10px;
+        color: #d92368;
+        font-size: 0.9rem;
+        font-weight: 1000;
+      }
+
+      @media (max-width: 720px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-side {
+          grid-template-columns: 104px minmax(0, 1fr);
+          align-items: stretch;
+        }
+
+        .header-actions {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 520px) {
+        body {
+          font-size: 16px;
+        }
+
+        .page {
+          padding: 12px 9px 86px;
+        }
+
+        .hero {
+          padding: 10px;
+          box-shadow: 5px 5px 0 var(--line);
+        }
+
+        .brand-main {
+          grid-template-columns: 82px minmax(0, 1fr);
+          gap: 11px;
+        }
+
+        .logo {
+          width: 82px;
+          box-shadow: 4px 4px 0 var(--pink);
+        }
+
+        h1 {
+          font-size: clamp(2.25rem, 13vw, 3.2rem);
+        }
+
+        .hero p {
+          font-size: 0.98rem;
+        }
+
+        .hero-side {
+          grid-template-columns: 84px minmax(0, 1fr);
+          gap: 8px;
+        }
+
+        .live-pill {
+          padding: 8px 6px;
+        }
+
+        .live-pill strong {
+          font-size: 1.35rem;
+        }
+
+        .header-actions a {
+          min-height: 58px;
+          padding: 10px 6px;
+          font-size: 1.02rem;
+        }
+
+        .meta {
+          grid-template-columns: 1fr;
+        }
+
+        .card h2 {
+          padding: 14px 12px 14px 63px;
+        }
+
+        .card h2::before {
+          left: 11px;
+          width: 38px;
+          height: 30px;
+        }
+
+        .rows {
+          gap: 8px;
+          padding: 10px;
+        }
+
+        .row {
+          grid-template-columns: minmax(0, 1fr) max-content;
+          gap: 8px;
+          min-height: 46px;
+          padding: 10px;
+          font-size: 1.02rem;
+        }
+
+        .row strong {
+          min-width: 88px;
+          padding: 5px 8px;
+          font-size: 0.98rem;
+        }
+
+        .contact {
+          left: 9px;
+          right: 9px;
+          bottom: 9px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .contact a {
+          min-height: 40px;
+          padding: 8px 10px;
+          font-size: 0.92rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="brand-main" id="adminGesture">
+          <span class="logo"><img src="LOGO6.png" alt="" /></span>
+          <div>
+            <span class="eyebrow">DIABLO IV PRICE BOARD</span>
+            <h1>제리샵</h1>
+            <p>빠르게 확인하고 편하게 문의하세요.</p>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="live-pill">
+            <span>현재 상담중</span>
+            <strong id="talkingCount">6명</strong>
+          </div>
+          <div class="header-actions">
+            <a href="www.naver.com" target="_blank" rel="noopener noreferrer">1:1 오픈톡</a>
+            <a href="www.naver.com" target="_blank" rel="noopener noreferrer">단톡방 입장</a>
+          </div>
+        </div>
+        <div class="meta">
+          <span class="chip" id="today"></span>
+          <span class="chip">대기X 상담</span>
+          <span class="chip">빠른 답변</span>
+        </div>
+      </section>
+
+      <div class="notice">편하게 문의주시면 빠르게 안내해드릴게요.</div>
+      <section class="price-list" id="priceList"></section>
+    </main>
+
+    <div class="contact">
+      <a href="www.naver.com" target="_blank" rel="noopener noreferrer">1:1 톡</a>
+      <a href="www.naver.com" target="_blank" rel="noopener noreferrer">단톡방</a>
+    </div>
+
+    <div class="modal-backdrop" id="adminModal">
+      <section class="modal">
+        <h2>가격표 편집</h2>
+        <p>비밀번호를 입력하면 이 화면에서 가격표 원문을 붙여넣고 저장할 수 있어요.</p>
+
+        <div id="passwordPanel">
+          <input id="passwordInput" type="password" placeholder="비밀번호" autocomplete="current-password" />
+          <div class="modal-actions">
+            <button id="loginButton" type="button">열기</button>
+            <button class="secondary" id="closeButton" type="button">닫기</button>
+          </div>
+          <div class="hint" id="loginHint"></div>
+        </div>
+
+        <div class="admin-panel" id="adminPanel">
+          <textarea id="priceEditor" spellcheck="false"></textarea>
+          <div class="modal-actions">
+            <button id="previewButton" type="button">미리보기</button>
+            <button id="saveButton" type="button">저장</button>
+            <button class="secondary" id="copyButton" type="button">전체 복사</button>
+            <button class="danger" id="resetButton" type="button">원본으로 되돌리기</button>
+            <button class="secondary" id="closeEditorButton" type="button">닫기</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      let serverSession = false;
+      const priceList = document.querySelector("#priceList");
+      const today = document.querySelector("#today");
+      const talkingCount = document.querySelector("#talkingCount");
+      const modal = document.querySelector("#adminModal");
+      const passwordPanel = document.querySelector("#passwordPanel");
+      const adminPanel = document.querySelector("#adminPanel");
+      const passwordInput = document.querySelector("#passwordInput");
+      const loginHint = document.querySelector("#loginHint");
+      const priceEditor = document.querySelector("#priceEditor");
+      let originalText = "";
+
+      today.textContent = new Intl.DateTimeFormat("ko-KR", {
+        timeZone: "Asia/Seoul",
+        month: "long",
+        day: "numeric",
+        weekday: "long"
+      }).format(new Date());
+      talkingCount.textContent = `${3 + ((new Date().getHours() * 7 + new Date().getMinutes()) % 6)}명`;
+
+      init();
+
+      async function init() {
+        originalText = await loadPriceText();
+        renderPriceList(originalText);
+      }
+
+      async function loadPriceText() {
+        try {
+          const savedResponse = await fetch("api/price", { cache: "no-store" });
+          if (savedResponse.ok) {
+            const savedData = await savedResponse.json();
+            if (savedData.text) return savedData.text;
+          }
+        } catch {}
+
+        try {
+          const response = await fetch("가격표.txt", { cache: "no-store" });
+          if (!response.ok) throw new Error("가격표를 불러오지 못했습니다.");
+          return await response.text();
+        } catch {
+          return "";
+        }
+      }
+
+      function renderPriceList(text) {
+        const sections = parsePriceText(text);
+        if (!sections.length) {
+          priceList.innerHTML = '<div class="empty">가격표 내용을 불러오지 못했습니다.</div>';
+          return;
+        }
+
+        priceList.innerHTML = sections
+          .map(
+            (section) => `
+              <article class="card">
+                <h2>${escapeHtml(section.title)}</h2>
+                <div class="rows">
+                  ${section.rows
+                    .map((row) =>
+                      row.price
+                        ? `<div class="row"><span>${escapeHtml(row.label)}</span><strong>${escapeHtml(row.price)}</strong></div>`
+                        : `<div class="row note">${escapeHtml(row.label)}</div>`
+                    )
+                    .join("")}
+                </div>
+              </article>
+            `
+          )
+          .join("");
+      }
+
+      function parsePriceText(text) {
+        return text
+          .split(/＊{5,}/g)
+          .map((block) =>
+            block
+              .split(/\r?\n/)
+              .map((line) => line.trim())
+              .filter(Boolean)
+          )
+          .filter((lines) => lines.length)
+          .map((lines) => {
+            const title = lines[0].replace(/\uFE0F/g, "");
+            const rows = lines.slice(1).map(parseRow).filter(Boolean);
+            return { title, rows };
+          });
+      }
+
+      function parseRow(line) {
+        const clean = line.replace(/^--\s*/, "").trim();
+        if (!clean) return null;
+        const parts = clean.split(/\s*=\s*/);
+        if (parts.length >= 2) {
+          return {
+            label: parts.shift().trim(),
+            price: parts.join(" = ").trim()
+          };
+        }
+        return { label: clean, price: "" };
+      }
+
+      function openAdminModal() {
+        modal.classList.add("open");
+        passwordPanel.style.display = "block";
+        adminPanel.classList.remove("open");
+        passwordInput.value = "";
+        loginHint.textContent = "";
+        setTimeout(() => passwordInput.focus(), 50);
+      }
+
+      const adminGesture = document.querySelector("#adminGesture");
+      let adminHoldTimer = null;
+
+      function clearAdminHold() {
+        if (adminHoldTimer) {
+          clearTimeout(adminHoldTimer);
+          adminHoldTimer = null;
+        }
+      }
+
+      adminGesture.addEventListener("pointerdown", (event) => {
+        if (event.button && event.button !== 0) return;
+        clearAdminHold();
+        adminHoldTimer = setTimeout(() => {
+          adminHoldTimer = null;
+          if (navigator.vibrate) navigator.vibrate(20);
+          openAdminModal();
+        }, 1500);
+      });
+      adminGesture.addEventListener("pointerup", clearAdminHold);
+      adminGesture.addEventListener("pointerleave", clearAdminHold);
+      adminGesture.addEventListener("pointercancel", clearAdminHold);
+      adminGesture.addEventListener("contextmenu", (event) => event.preventDefault());
+
+      document.querySelector("#closeButton").addEventListener("click", closeModal);
+      document.querySelector("#closeEditorButton").addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+      });
+
+      document.querySelector("#loginButton").addEventListener("click", unlockEditor);
+      passwordInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") unlockEditor();
+      });
+
+      document.querySelector("#previewButton").addEventListener("click", () => {
+        renderPriceList(priceEditor.value);
+      });
+
+      document.querySelector("#saveButton").addEventListener("click", async () => {
+        const text = priceEditor.value;
+
+        if (!serverSession) {
+          alert("로그인이 필요합니다.");
+          return;
+        }
+
+        try {
+          const response = await fetch("api/price", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: JSON.stringify({ text })
+          });
+          if (!response.ok) {
+            throw new Error("저장에 실패했습니다.");
+          }
+          originalText = text;
+          renderPriceList(text);
+          alert("저장했습니다.");
+        } catch (error) {
+          alert("저장에 실패했습니다.");
+        }
+      });
+
+      document.querySelector("#copyButton").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(priceEditor.value);
+      });
+
+      document.querySelector("#resetButton").addEventListener("click", () => {
+        priceEditor.value = originalText;
+        renderPriceList(originalText);
+      });
+
+      async function unlockEditor() {
+        serverSession = false;
+
+        try {
+          const response = await fetch("api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: JSON.stringify({ password: passwordInput.value })
+          });
+
+          if (!response.ok) {
+            loginHint.textContent = "비밀번호가 다릅니다.";
+            return;
+          }
+
+          serverSession = true;
+        } catch {
+          loginHint.textContent = "로그인할 수 없습니다.";
+          return;
+        }
+
+        passwordPanel.style.display = "none";
+        adminPanel.classList.add("open");
+        priceEditor.value = originalText;
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+      }
+
+      function escapeHtml(value) {
+        return String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+    </script>
+  </body>
+</html>
