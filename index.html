@@ -649,8 +649,6 @@
     </div>
 
     <script>
-      const STORAGE_KEY = "jerryshop.simple.priceText";
-      const LOCAL_PREVIEW_PASSWORD = atob("dGhlMDQwOCE=");
       let serverSession = false;
       const priceList = document.querySelector("#priceList");
       const today = document.querySelector("#today");
@@ -675,8 +673,7 @@
 
       async function init() {
         originalText = await loadPriceText();
-        const savedText = localStorage.getItem(STORAGE_KEY);
-        renderPriceList(savedText || originalText);
+        renderPriceList(originalText);
       }
 
       async function loadPriceText() {
@@ -787,13 +784,6 @@
       adminGesture.addEventListener("pointercancel", clearAdminHold);
       adminGesture.addEventListener("contextmenu", (event) => event.preventDefault());
 
-      document.addEventListener("keydown", (event) => {
-        if (event.ctrlKey && event.altKey && event.key.toLowerCase() === "a") {
-          event.preventDefault();
-          openAdminModal();
-        }
-      });
-
       document.querySelector("#closeButton").addEventListener("click", closeModal);
       document.querySelector("#closeEditorButton").addEventListener("click", closeModal);
       modal.addEventListener("click", (event) => {
@@ -811,33 +801,30 @@
 
       document.querySelector("#saveButton").addEventListener("click", async () => {
         const text = priceEditor.value;
-        if (serverSession) {
-          try {
-            const response = await fetch("api/price", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-              },
-              body: JSON.stringify({ text })
-            });
-            if (!response.ok) {
-              throw new Error("저장에 실패했습니다.");
-            }
-            originalText = text;
-            localStorage.removeItem(STORAGE_KEY);
-            renderPriceList(text);
-            alert("저장했습니다.");
-            return;
-          } catch (error) {
-            alert("저장에 실패했습니다.");
-            return;
-          }
+
+        if (!serverSession) {
+          alert("로그인이 필요합니다.");
+          return;
         }
 
-        localStorage.setItem(STORAGE_KEY, text);
-        renderPriceList(text);
-        alert("저장했습니다.");
+        try {
+          const response = await fetch("api/price", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json"
+            },
+            body: JSON.stringify({ text })
+          });
+          if (!response.ok) {
+            throw new Error("저장에 실패했습니다.");
+          }
+          originalText = text;
+          renderPriceList(text);
+          alert("저장했습니다.");
+        } catch (error) {
+          alert("저장에 실패했습니다.");
+        }
       });
 
       document.querySelector("#copyButton").addEventListener("click", async () => {
@@ -845,7 +832,6 @@
       });
 
       document.querySelector("#resetButton").addEventListener("click", () => {
-        localStorage.removeItem(STORAGE_KEY);
         priceEditor.value = originalText;
         renderPriceList(originalText);
       });
@@ -863,22 +849,20 @@
             body: JSON.stringify({ password: passwordInput.value })
           });
 
-          if (response.ok) {
-            serverSession = true;
-          } else if (passwordInput.value !== LOCAL_PREVIEW_PASSWORD) {
+          if (!response.ok) {
             loginHint.textContent = "비밀번호가 다릅니다.";
             return;
           }
+
+          serverSession = true;
         } catch {
-          if (passwordInput.value !== LOCAL_PREVIEW_PASSWORD) {
-            loginHint.textContent = "비밀번호가 다릅니다.";
-            return;
-          }
+          loginHint.textContent = "로그인할 수 없습니다.";
+          return;
         }
 
         passwordPanel.style.display = "none";
         adminPanel.classList.add("open");
-        priceEditor.value = localStorage.getItem(STORAGE_KEY) || originalText;
+        priceEditor.value = originalText;
       }
 
       function closeModal() {
