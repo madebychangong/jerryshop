@@ -210,9 +210,14 @@
         background: var(--yellow);
       }
 
-      .header-actions a:last-child,
-      .contact a:last-child {
-        background: var(--sky);
+      .header-actions a,
+      .contact a {
+        background: linear-gradient(135deg, #ff78b3 0%, #fee500 48%, #70d7ff 100%);
+      }
+
+      .header-actions.is-single a {
+        min-height: 84px;
+        font-size: 1.22rem;
       }
 
       .meta {
@@ -380,8 +385,8 @@
 
       .contact a {
         min-height: 42px;
-        padding: 9px 12px;
-        font-size: 0.94rem;
+        padding: 10px 16px;
+        font-size: 0.98rem;
       }
 
       .modal-backdrop {
@@ -481,9 +486,6 @@
           align-items: stretch;
         }
 
-        .header-actions {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
       }
 
       @media (max-width: 520px) {
@@ -537,6 +539,11 @@
           font-size: 1.02rem;
         }
 
+        .header-actions.is-single a {
+          min-height: 58px;
+          font-size: 1.05rem;
+        }
+
         .meta {
           grid-template-columns: 1fr;
         }
@@ -574,7 +581,6 @@
           left: 9px;
           right: 9px;
           bottom: 9px;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .contact a {
@@ -601,9 +607,8 @@
             <span>현재 상담중</span>
             <strong id="talkingCount">6명</strong>
           </div>
-          <div class="header-actions">
-            <a href="www.naver.com" target="_blank" rel="noopener noreferrer">1:1 오픈톡</a>
-            <a href="www.naver.com" target="_blank" rel="noopener noreferrer">단톡방 입장</a>
+          <div class="header-actions is-single">
+            <a href="https://open.kakao.com/o/sLOYY2ui" target="_blank" rel="noopener noreferrer">단톡방 입장</a>
           </div>
         </div>
         <div class="meta">
@@ -618,8 +623,7 @@
     </main>
 
     <div class="contact">
-      <a href="www.naver.com" target="_blank" rel="noopener noreferrer">1:1 톡</a>
-      <a href="www.naver.com" target="_blank" rel="noopener noreferrer">단톡방</a>
+      <a href="https://open.kakao.com/o/sLOYY2ui" target="_blank" rel="noopener noreferrer">단톡방</a>
     </div>
 
     <div class="modal-backdrop" id="adminModal">
