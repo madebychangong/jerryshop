@@ -210,14 +210,9 @@
         background: var(--yellow);
       }
 
-      .header-actions a,
-      .contact a {
-        background: linear-gradient(135deg, #ff78b3 0%, #fee500 48%, #70d7ff 100%);
-      }
-
-      .header-actions.is-single a {
-        min-height: 84px;
-        font-size: 1.22rem;
+      .header-actions a:last-child,
+      .contact a:last-child {
+        background: var(--sky);
       }
 
       .meta {
@@ -539,11 +534,6 @@
           font-size: 1.02rem;
         }
 
-        .header-actions.is-single a {
-          min-height: 58px;
-          font-size: 1.05rem;
-        }
-
         .meta {
           grid-template-columns: 1fr;
         }
@@ -581,6 +571,7 @@
           left: 9px;
           right: 9px;
           bottom: 9px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .contact a {
@@ -607,8 +598,9 @@
             <span>현재 상담중</span>
             <strong id="talkingCount">6명</strong>
           </div>
-          <div class="header-actions is-single">
-            <a href="https://open.kakao.com/o/sLOYY2ui" target="_blank" rel="noopener noreferrer">1:1 오픈톡</a>
+          <div class="header-actions">
+            <a href="https://open.kakao.com/o/sCcLnw9h" target="_blank" rel="noopener noreferrer">1:1 오픈톡</a>
+            <a href="https://open.kakao.com/o/gCBr6Nni" target="_blank" rel="noopener noreferrer">단톡방 입장</a>
           </div>
         </div>
         <div class="meta">
@@ -623,7 +615,8 @@
     </main>
 
     <div class="contact">
-      <a href="https://open.kakao.com/o/sLOYY2ui" target="_blank" rel="noopener noreferrer">1:1 톡</a>
+      <a href="https://open.kakao.com/o/sCcLnw9h" target="_blank" rel="noopener noreferrer">1:1 톡</a>
+      <a href="https://open.kakao.com/o/gCBr6Nni" target="_blank" rel="noopener noreferrer">단톡방</a>
     </div>
 
     <div class="modal-backdrop" id="adminModal">
