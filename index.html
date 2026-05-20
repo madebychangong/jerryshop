@@ -166,7 +166,9 @@
       }
 
       .header-actions a,
+      .header-actions button,
       .contact a,
+      .contact button,
       .modal button {
         display: grid;
         place-items: center;
@@ -190,7 +192,9 @@
       }
 
       .header-actions a:hover,
+      .header-actions button:hover,
       .contact a:hover,
+      .contact button:hover,
       .modal button:hover {
         transform: translate(-2px, -2px);
         box-shadow: 6px 6px 0 var(--line);
@@ -198,7 +202,9 @@
       }
 
       .header-actions a:active,
+      .header-actions button:active,
       .contact a:active,
+      .contact button:active,
       .modal button:active {
         transform: translate(3px, 3px);
         box-shadow: 1px 1px 0 var(--line);
@@ -213,6 +219,11 @@
       .header-actions a:last-child,
       .contact a:last-child {
         background: var(--sky);
+      }
+
+      .header-actions button,
+      .contact button {
+        background: var(--mint);
       }
 
       .meta {
@@ -331,6 +342,22 @@
         font-size: 1.08rem;
       }
 
+      .row.price-row {
+        width: 100%;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .row.price-row.selected {
+        border-color: var(--hot);
+        background: #fff0f7;
+        box-shadow: inset 0 0 0 2px rgba(255, 63, 147, 0.18);
+      }
+
+      .row.price-row.selected strong {
+        background: var(--hot);
+      }
+
       .row strong {
         border: 2px solid var(--line);
         border-radius: 999px;
@@ -371,17 +398,102 @@
 
       .contact {
         position: fixed;
-        right: 14px;
+        left: 50%;
+        right: auto;
         bottom: 14px;
         z-index: 20;
         display: grid;
+        grid-template-columns: repeat(4, max-content);
         gap: 8px;
+        width: max-content;
+        max-width: calc(100% - 110px);
+        transform: translateX(-50%);
       }
 
-      .contact a {
+      .contact a,
+      .contact button {
         min-height: 42px;
         padding: 10px 16px;
         font-size: 0.98rem;
+      }
+
+      .cart-count {
+        display: inline-grid;
+        place-items: center;
+        min-width: 24px;
+        height: 24px;
+        margin-left: 4px;
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 0.82rem;
+      }
+
+      .cart-items {
+        display: grid;
+        gap: 8px;
+        max-height: 28vh;
+        overflow: auto;
+        margin: 12px 0;
+      }
+
+      .cart-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        border: 2px solid #eadfea;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
+      }
+
+      .cart-item b,
+      .cart-item span {
+        display: block;
+      }
+
+      .cart-item b {
+        font-size: 0.95rem;
+      }
+
+      .cart-item span {
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 900;
+      }
+
+      .cart-item button {
+        min-height: 34px;
+        padding: 6px 9px;
+        background: var(--pink);
+        font-size: 0.82rem;
+      }
+
+      .buyer-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .buyer-grid label {
+        display: grid;
+        gap: 6px;
+        font-size: 0.88rem;
+        font-weight: 1000;
+      }
+
+      .cart-empty {
+        border: 2px dashed var(--line);
+        border-radius: 8px;
+        padding: 18px 12px;
+        background: #fff;
+        color: var(--muted);
+        text-align: center;
+        font-weight: 1000;
       }
 
       .modal-backdrop {
@@ -587,16 +699,24 @@
         }
 
         .contact {
-          left: 9px;
-          right: 9px;
+          left: 50%;
+          right: auto;
           bottom: 9px;
+          width: calc(100% - 104px);
+          max-width: 390px;
           grid-template-columns: repeat(2, minmax(0, 1fr));
+          transform: translateX(-50%);
         }
 
-        .contact a {
+        .contact a,
+        .contact button {
           min-height: 40px;
           padding: 8px 10px;
           font-size: 0.92rem;
+        }
+
+        .buyer-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -620,6 +740,7 @@
           <div class="header-actions">
             <a id="kakaoOneTop" href="https://open.kakao.com/o/sCcLnw9h" target="_blank" rel="noopener noreferrer">1:1 오픈톡</a>
             <a id="kakaoGroupTop" href="https://open.kakao.com/o/gCBr6Nni" target="_blank" rel="noopener noreferrer">단톡방 입장</a>
+            <button id="channelTop" type="button">채널톡 문의</button>
           </div>
         </div>
         <div class="meta">
@@ -634,8 +755,34 @@
     </main>
 
     <div class="contact">
+      <button id="cartFloat" type="button">장바구니 <span class="cart-count" data-cart-count>0</span></button>
+      <button id="channelFloat" type="button">채널톡</button>
       <a id="kakaoOneFloat" href="https://open.kakao.com/o/sCcLnw9h" target="_blank" rel="noopener noreferrer">1:1 톡</a>
       <a id="kakaoGroupFloat" href="https://open.kakao.com/o/gCBr6Nni" target="_blank" rel="noopener noreferrer">단톡방</a>
+    </div>
+
+    <div class="modal-backdrop" id="cartModal">
+      <section class="modal">
+        <h2>장바구니</h2>
+        <p>담은 품목과 구매자 정보를 한 번에 복사해서 상담창에 붙여넣을 수 있어요.</p>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="buyer-grid">
+          <label>
+            배틀태그
+            <input id="battleTagInput" type="text" placeholder="예: Jerry#1234" autocomplete="off" />
+          </label>
+          <label>
+            입금자명
+            <input id="depositorInput" type="text" placeholder="입금자명" autocomplete="off" />
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button id="copyOrderButton" type="button">주문서 복사</button>
+          <button id="copyChannelButton" type="button">복사하고 채널톡</button>
+          <button class="secondary" id="clearCartButton" type="button">비우기</button>
+          <button class="secondary" id="closeCartButton" type="button">닫기</button>
+        </div>
+      </section>
     </div>
 
     <div class="modal-backdrop" id="adminModal">
@@ -680,7 +827,9 @@
     </div>
 
     <script>
+      const CHANNEL_PLUGIN_KEY = "546fd23b-1662-4d6a-aca6-d5c0edc842f7";
       let serverSession = false;
+      const cart = new Map();
       const defaultSiteSettings = {
         notice: "언제든 편히 문의 주세요 😉 친절하고 상세히 안내해 드립니다 😄",
         kakaoOneUrl: "https://open.kakao.com/o/sCcLnw9h",
@@ -699,6 +848,10 @@
       const noticeEditor = document.querySelector("#noticeEditor");
       const kakaoOneEditor = document.querySelector("#kakaoOneEditor");
       const kakaoGroupEditor = document.querySelector("#kakaoGroupEditor");
+      const cartModal = document.querySelector("#cartModal");
+      const cartItems = document.querySelector("#cartItems");
+      const battleTagInput = document.querySelector("#battleTagInput");
+      const depositorInput = document.querySelector("#depositorInput");
       let originalText = "";
 
       today.textContent = new Intl.DateTimeFormat("ko-KR", {
@@ -715,6 +868,8 @@
         applySiteSettings({});
         originalText = await loadPriceText();
         renderPriceList(originalText);
+        renderCart();
+        bootChannelTalk();
       }
 
       function applySiteSettings(settings) {
@@ -777,17 +932,18 @@
                 <h2>${escapeHtml(section.title)}</h2>
                 <div class="rows">
                   ${section.rows
-                    .map((row) =>
-                      row.price
-                        ? `<div class="row"><span>${escapeHtml(row.label)}</span><strong>${escapeHtml(row.price)}</strong></div>`
-                        : `<div class="row note">${escapeHtml(row.label)}</div>`
-                    )
+                    .map((row) => {
+                      if (!row.price) return `<div class="row note">${escapeHtml(row.label)}</div>`;
+                      const key = cartKey(section.title, row.label, row.price);
+                      return `<button class="row price-row ${cart.has(key) ? "selected" : ""}" type="button" data-cart-key="${escapeHtml(key)}" data-title="${escapeHtml(section.title)}" data-label="${escapeHtml(row.label)}" data-price="${escapeHtml(row.price)}"><span>${escapeHtml(row.label)}</span><strong>${escapeHtml(row.price)}</strong></button>`;
+                    })
                     .join("")}
                 </div>
               </article>
             `
           )
           .join("");
+        bindPriceRows();
       }
 
       function parsePriceText(text) {
@@ -818,6 +974,148 @@
           };
         }
         return { label: clean, price: "" };
+      }
+
+      function cartKey(title, label, price) {
+        return `${title}|||${label}|||${price}`;
+      }
+
+      function bindPriceRows() {
+        priceList.querySelectorAll("[data-cart-key]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const key = button.dataset.cartKey;
+            if (cart.has(key)) {
+              cart.delete(key);
+              button.classList.remove("selected");
+            } else {
+              cart.set(key, {
+                title: button.dataset.title,
+                label: button.dataset.label,
+                price: button.dataset.price
+              });
+              button.classList.add("selected");
+            }
+            renderCart();
+          });
+        });
+      }
+
+      function renderCart() {
+        document.querySelectorAll("[data-cart-count]").forEach((count) => {
+          count.textContent = String(cart.size);
+        });
+
+        if (!cart.size) {
+          cartItems.innerHTML = '<div class="cart-empty">가격표에서 원하는 품목을 눌러 담아주세요.</div>';
+          return;
+        }
+
+        cartItems.innerHTML = [...cart.entries()]
+          .map(
+            ([key, item]) => `
+              <div class="cart-item">
+                <div>
+                  <b>${escapeHtml(item.title)}</b>
+                  <span>${escapeHtml(item.label)} / ${escapeHtml(item.price)}</span>
+                </div>
+                <button type="button" data-remove-cart="${escapeHtml(key)}">삭제</button>
+              </div>
+            `
+          )
+          .join("");
+
+        cartItems.querySelectorAll("[data-remove-cart]").forEach((button) => {
+          button.addEventListener("click", () => {
+            cart.delete(button.dataset.removeCart);
+            renderCart();
+            renderPriceList(originalText);
+          });
+        });
+      }
+
+      function openCartModal() {
+        renderCart();
+        cartModal.classList.add("open");
+      }
+
+      function closeCartModal() {
+        cartModal.classList.remove("open");
+      }
+
+      function clearCart() {
+        cart.clear();
+        renderCart();
+        renderPriceList(originalText);
+      }
+
+      function buildOrderText() {
+        const lines = ["[제리샵 주문 상담]", ""];
+        if (cart.size) {
+          lines.push("[담은 품목]");
+          [...cart.values()].forEach((item, index) => {
+            lines.push(`${index + 1}. ${item.title} / ${item.label} / ${item.price}`);
+          });
+        } else {
+          lines.push("[담은 품목]");
+          lines.push("- 상담 후 결정");
+        }
+
+        lines.push("");
+        lines.push("[구매자 정보]");
+        lines.push(`배틀태그: ${battleTagInput.value.trim()}`);
+        lines.push(`입금자명: ${depositorInput.value.trim()}`);
+        return lines.join("\n");
+      }
+
+      async function copyOrder() {
+        await copyText(buildOrderText());
+        alert("주문서가 복사됐습니다. 상담창에 붙여넣어 주세요.");
+      }
+
+      async function copyText(text) {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      function bootChannelTalk() {
+        if (!CHANNEL_PLUGIN_KEY || window.ChannelIO) return;
+
+        const w = window;
+        const ch = function () {
+          ch.c(arguments);
+        };
+        ch.q = [];
+        ch.c = function (args) {
+          ch.q.push(args);
+        };
+        w.ChannelIO = ch;
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+        script.onload = () => {
+          window.ChannelIO("boot", { pluginKey: CHANNEL_PLUGIN_KEY });
+        };
+        document.head.appendChild(script);
+      }
+
+      function openChannelTalk() {
+        if (CHANNEL_PLUGIN_KEY && window.ChannelIO) {
+          window.ChannelIO("showMessenger");
+          return;
+        }
+        alert("채널톡 플러그인 키를 넣으면 이 버튼으로 상담창이 열립니다.");
       }
 
       function openAdminModal() {
@@ -852,6 +1150,20 @@
       adminGesture.addEventListener("pointerleave", clearAdminHold);
       adminGesture.addEventListener("pointercancel", clearAdminHold);
       adminGesture.addEventListener("contextmenu", (event) => event.preventDefault());
+
+      document.querySelector("#cartFloat").addEventListener("click", openCartModal);
+      document.querySelector("#channelTop").addEventListener("click", openChannelTalk);
+      document.querySelector("#channelFloat").addEventListener("click", openChannelTalk);
+      document.querySelector("#closeCartButton").addEventListener("click", closeCartModal);
+      document.querySelector("#clearCartButton").addEventListener("click", clearCart);
+      document.querySelector("#copyOrderButton").addEventListener("click", copyOrder);
+      document.querySelector("#copyChannelButton").addEventListener("click", async () => {
+        await copyOrder();
+        openChannelTalk();
+      });
+      cartModal.addEventListener("click", (event) => {
+        if (event.target === cartModal) closeCartModal();
+      });
 
       document.querySelector("#closeButton").addEventListener("click", closeModal);
       document.querySelector("#closeEditorButton").addEventListener("click", closeModal);
