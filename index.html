@@ -328,6 +328,16 @@
         padding: 14px;
       }
 
+      .rows-split .note {
+        grid-column: 1 / -1;
+      }
+
+      @media (min-width: 721px) {
+        .rows-split {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
       .row {
         display: grid;
         grid-template-columns: minmax(0, 1fr) max-content;
@@ -927,10 +937,10 @@
 
         priceList.innerHTML = sections
           .map(
-            (section) => `
+            (section, sectionIndex) => `
               <article class="card">
                 <h2>${escapeHtml(section.title)}</h2>
-                <div class="rows">
+                <div class="rows${sectionIndex >= 2 ? " rows-split" : ""}">
                   ${section.rows
                     .map((row) => {
                       if (!row.price) return `<div class="row note">${escapeHtml(row.label)}</div>`;
