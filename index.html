@@ -226,6 +226,18 @@
         background: var(--mint);
       }
 
+      .contact #cartFloat.has-items {
+        background: var(--pink);
+      }
+
+      .contact #kakaoOneFloat {
+        background: var(--yellow);
+      }
+
+      .contact #kakaoGroupFloat {
+        background: var(--sky);
+      }
+
       .meta {
         grid-column: 1 / -1;
         display: grid;
@@ -504,6 +516,24 @@
         color: var(--muted);
         text-align: center;
         font-weight: 1000;
+      }
+
+      .cart-total {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border: 2px solid var(--line);
+        border-radius: 8px;
+        padding: 13px 14px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 1000;
+      }
+
+      .cart-total strong {
+        color: var(--yellow);
+        text-align: right;
       }
 
       .modal-backdrop {
@@ -990,6 +1020,50 @@
         return `${title}|||${label}|||${price}`;
       }
 
+      function parsePriceAmount(value) {
+        const text = String(value || "").trim();
+        if (!text || /문의|상담|결정|별도/.test(text)) return null;
+
+        const wonMatch = text.match(/([0-9][0-9,]*)\s*원/);
+        if (wonMatch) return Number(wonMatch[1].replace(/,/g, ""));
+
+        const manMatch = text.match(/([0-9]+(?:\.[0-9]+)?)\s*만/);
+        if (manMatch) return Math.round(Number(manMatch[1]) * 10000);
+
+        const plainMatch = text.replace(/,/g, "").match(/^([0-9]+(?:\.[0-9]+)?)$/);
+        if (plainMatch) {
+          const number = Number(plainMatch[1]);
+          return plainMatch[1].includes(".") ? Math.round(number * 10000) : number;
+        }
+
+        return null;
+      }
+
+      function formatWon(amount) {
+        return `${amount.toLocaleString("ko-KR")}원`;
+      }
+
+      function getCartTotal() {
+        return [...cart.values()].reduce(
+          (summary, item) => {
+            const amount = parsePriceAmount(item.price);
+            if (amount === null) summary.unknown += 1;
+            else summary.total += amount;
+            return summary;
+          },
+          { total: 0, unknown: 0 }
+        );
+      }
+
+      function formatCartTotal(summary) {
+        if (summary.total > 0 && summary.unknown > 0) {
+          return `${formatWon(summary.total)} + 별도확인 ${summary.unknown}건`;
+        }
+        if (summary.total > 0) return formatWon(summary.total);
+        if (summary.unknown > 0) return `별도확인 ${summary.unknown}건`;
+        return "0원";
+      }
+
       function bindPriceRows() {
         priceList.querySelectorAll("[data-cart-key]").forEach((button) => {
           button.addEventListener("click", () => {
@@ -1014,12 +1088,14 @@
         document.querySelectorAll("[data-cart-count]").forEach((count) => {
           count.textContent = String(cart.size);
         });
+        document.querySelector("#cartFloat")?.classList.toggle("has-items", cart.size > 0);
 
         if (!cart.size) {
           cartItems.innerHTML = '<div class="cart-empty">가격표에서 원하는 품목을 눌러 담아주세요.</div>';
           return;
         }
 
+        const totalText = formatCartTotal(getCartTotal());
         cartItems.innerHTML = [...cart.entries()]
           .map(
             ([key, item]) => `
@@ -1032,7 +1108,8 @@
               </div>
             `
           )
-          .join("");
+          .join("") +
+          `<div class="cart-total"><span>총 합계</span><strong>${escapeHtml(totalText)}</strong></div>`;
 
         cartItems.querySelectorAll("[data-remove-cart]").forEach((button) => {
           button.addEventListener("click", () => {
@@ -1065,6 +1142,8 @@
           [...cart.values()].forEach((item, index) => {
             lines.push(`${index + 1}. ${item.title} / ${item.label} / ${item.price}`);
           });
+          lines.push("");
+          lines.push(`[총 합계] ${formatCartTotal(getCartTotal())}`);
         } else {
           lines.push("[담은 품목]");
           lines.push("- 상담 후 결정");
